@@ -9,10 +9,9 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-
-        </activity>
-        <activity android:name=".SplashScreen"
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".SplashScreen"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,6 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".w_venue.WeddingVenue" />
+        <activity android:name=".w_gifts.WeddingGifts" />
+        <activity android:name=".w_theme.WeddingTheme" />
+        <activity android:name=".w_guests.WeddingGuests" />
+        <activity android:name=".authentication.SignUp"></activity>
     </application>
 
 </manifest>

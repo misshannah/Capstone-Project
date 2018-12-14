@@ -13,26 +13,26 @@ import android.widget.TextView;
 
 public class MainRecyclerViewItemHolder extends RecyclerView.ViewHolder {
 
-    private TextView carTitleText = null;
+    private TextView catTitleText = null;
 
-    private ImageView carImageView = null;
+    private ImageView catImageView = null;
 
     public MainRecyclerViewItemHolder(View itemView) {
         super(itemView);
 
         if(itemView != null)
         {
-            carTitleText = (TextView)itemView.findViewById(R.id.card_view_image_title);
+            catTitleText = (TextView)itemView.findViewById(R.id.card_view_image_title);
 
-            carImageView = (ImageView)itemView.findViewById(R.id.card_view_image);
+            catImageView = (ImageView)itemView.findViewById(R.id.card_view_image);
         }
     }
 
-    public TextView getCarTitleText() {
-        return carTitleText;
+    public TextView getcatTitleText() {
+        return catTitleText;
     }
 
-    public ImageView getCarImageView() {
-        return carImageView;
+    public ImageView getcatImageView() {
+        return catImageView;
     }
 }
