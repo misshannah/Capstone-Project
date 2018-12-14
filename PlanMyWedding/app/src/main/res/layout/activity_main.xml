@@ -7,19 +7,14 @@
     android:layout_height="match_parent"
     tools:context="com.olukoye.hannah.planmywedding.MainActivity">
 
-    <View
-        android:id="@+id/header"
-        android:background="@drawable/wedding_bg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </View>
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:alpha="0.6"
-        android:layout_margin="20dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="10dp"
+        android:layout_margin="10dp"
         android:clickable="true"
         android:focusable="true">
 
@@ -28,33 +23,20 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <ImageView
+                android:id="@+id/card_view_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"/>
 
             <TextView
-                android:id="@+id/venue_card"
-                style="@style/TextAppearance.AppCompat.Title"
+                android:id="@+id/card_view_image_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:gravity="center"
-                android:paddingRight="16dp"
-                android:ellipsize="end"
-                android:textColor="#000"
-                android:text="Wedding Venue"
-                android:maxLines="4" />
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20dp"/>
 
-            <TextView
-                android:id="@+id/guests_card"
-                style="@style/TextAppearance.AppCompat.Title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
-                android:gravity="center"
-                android:paddingRight="16dp"
-                android:paddingBottom="4dp"
-                android:ellipsize="end"
-                android:textColor="#000"
-                android:text="Guests Registration"
-                android:maxLines="4" />
+
         </LinearLayout>
 
 
