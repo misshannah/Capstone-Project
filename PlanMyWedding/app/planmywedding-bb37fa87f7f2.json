@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "planmywedding",
+  "private_key_id": "bb37fa87f7f2255ed924cda4438679c7cb57646a",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDhgX+nE717MeN3\n8HfXF5DnrEMDzS5+UZKfTkX1hG+NS6JsIdd0aylV2aX0qFQyN6losoD2XNEtyAO3\nDLGqPgjgLSSqXW0w8lYrHFApk1t0X9jlu38bvLh+Nou45nBS/U6FZeJFoa9hN89X\nYH/12ItAXyAnX339hdVp3UYi/zKvFmHFMB4J+AOIJJVBtoFCE2ew+gMm8h6j79Ay\nPAZxcqK4FLHISDKZXVAy8ehKp6pJgfA2YDoZLyZMS6FBKzvogOjf4nXvjT1IzCrq\nL9C3C6+7FslRCnBOZ6NO9hm8Z+WgbF9y+PB23/RrC3d2usnL0aWXkToKljcDloE6\nPotvycYpAgMBAAECggEAPSAxnnPK3kxxGK9NhLfGFw5KIgspiaMJ5/W7H+h0pmu0\njLQFp3BuxW8YPX+tRulwmckdDOqu5sZ7P1CJDhj/peiGskld0jE2Kzxi/EoNtbdP\nX0JaG4Ylykx1xjpsgwpXkPBDi9VeaS9MHCazuMuoP1wpppKLX7+50BbjLpRXRD7+\nCeL0Lm9F8nn/lfdSQAtY5ktoilJ1zoDj5JsYIZR0eRTSeM5LfrbLqRLyQ8wQTyjx\nGzqJI/hZgU5Pm1wWjpgKYg4I8hOBmRukOvzBEPra9EAYhegCC5/1S8w8ydQblp1w\n8TR8R7284KasbMXRbMoNFKkiy2378cC5MVXVvaMcEwKBgQD5txf53Yk/LQ9OHYdY\nk9nQ3StIgF18/NdTMGBcbScjew/xfzyV6sMa5IhEnpb0lImq2Gtqc4rNrE2kIJ+R\nQQ1X1e+EY4tdClegdUiRQP5T48JJpRhNnWZdBM08TMbUoUu1LbZlPvEVRnq8OGRY\nV8uhg9W9LOgvQ1FxKeAdopaROwKBgQDnLmzKBXz9/PA6F8j7xXfWVzyIx2iGhIzb\nUYy9e7OFNgocdGkkCPX8J7Qsk/zDhgt0frW8smGYjILt6Cr4up+gt2XreJ5LiaPT\nK+fjbj4gL66GqS2z/kSq6pZDVz9mDYuOXoQOLEvP6YnDQbTPKFwxtKlUserhrKWo\nrE6tRjAP6wKBgQD38Ip2xjcSqjvLFNig41Re5GqodwPcKPPnHl5fBuXYfcTrxKi0\nNb94wTZn44sA10cFghLNRGGqKw2ADABDafLEpp9FtMzYGX+9yxW9W2nqg3cSRkEm\nN0U+0Jiy6Yx17JzODNBQILmgpTUSE2/Wo32FJfAgACmdW9rOYIStCBU1pwKBgAfS\n8Ged6+8EonS03V53/mhIp4nRhd4XmlTJ28OF7jtx6sGvxucrTnfsOBLSJ1nOrZCR\nwUDToK3zA3NdyiaE2mYsDsz7VhAkZmD9OWnfD0czleqEy0EuN9C5A8DfsQuZJcH5\nvOpl4WL1+m2bSa1BJm2gOaLeKp7covakbj07BOFlAoGAexh7IqWhdbUpADWdSnpM\nNEgXS58EPb8Em+viPLSGi91IrgDzZmkkrxAzTIhFC0m+w2Osvn0UaWRA9NA36aUm\n4Bn4pM0idKUoVvDNPneSyPSmCDjPMeL40zClT4UTkKEF+LRhVLsyeCuzHqgXhxyM\nS/POZUKGaOUf8EVXi3ydUVk=\n-----END PRIVATE KEY-----\n",
+  "client_email": "planmywedding@planmywedding.iam.gserviceaccount.com",
+  "client_id": "117432666095235648902",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/planmywedding%40planmywedding.iam.gserviceaccount.com"
+}

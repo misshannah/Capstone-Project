@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "808533367086",
+    "firebase_url": "https://plan-my-wedding-295ab.firebaseio.com",
+    "project_id": "plan-my-wedding-295ab",
+    "storage_bucket": "plan-my-wedding-295ab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:808533367086:android:513ace2daedad1f0",
+        "android_client_info": {
+          "package_name": "com.olukoye.hannah.planmywedding"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "808533367086-l08cg9359spb3c8a6vh5isnmtvnirden.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.olukoye.hannah.planmywedding",
+            "certificate_hash": "89a603b37d296ea7ebc476bdeba82626f65dee38"
+          }
+        },
+        {
+          "client_id": "808533367086-si13v7aqqnu8rrne2o24om9rspliblfd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeSdMEch3CGELgLEPawLK_U28MZqZGANI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "808533367086-si13v7aqqnu8rrne2o24om9rspliblfd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
