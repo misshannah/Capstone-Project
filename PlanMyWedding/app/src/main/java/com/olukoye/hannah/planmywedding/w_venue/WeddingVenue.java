@@ -1,6 +1,5 @@
 package com.olukoye.hannah.planmywedding.w_venue;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -22,7 +21,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.olukoye.hannah.planmywedding.R;
-import com.olukoye.hannah.planmywedding.authentication.SignUp;
 
 public class WeddingVenue extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -45,14 +43,6 @@ public class WeddingVenue extends AppCompatActivity {
 
 
     }
-    private void updateUI(FirebaseUser user) {
-        if (user != null) {
-            ((TextView) findViewById(R.id.textSignInStatus)).setText(
-                    "Welcome: " + user.getDisplayName());
-        } else {
-            signup();
-        }
-    }
 
     private void signup() {
 
@@ -60,13 +50,13 @@ public class WeddingVenue extends AppCompatActivity {
         View prompt = li.inflate(R.layout.activity_sign_up, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setView(prompt);
-        inputEmail = (EditText) findViewById(R.id.email);
-        inputPassword = (EditText) findViewById(R.id.password);
-        Button signup = (Button) findViewById(R.id.sign_in_button);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        alertDialogBuilder.setTitle("");
-        alertDialogBuilder.setCancelable(false);
-        signup.setOnClickListener(new View.OnClickListener() {
+        final AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+        inputEmail = (EditText) prompt.findViewById(R.id.email);
+        inputPassword = (EditText) prompt.findViewById(R.id.password);
+        progressBar = (ProgressBar) prompt.findViewById(R.id.progressBar);
+        Button signupbtn = (Button) prompt.findViewById(R.id.sign_up_button);
+        signupbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -92,15 +82,12 @@ public class WeddingVenue extends AppCompatActivity {
                             .addOnCompleteListener(WeddingVenue.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    Toast.makeText(WeddingVenue.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(WeddingVenue.this, "Done!", Toast.LENGTH_SHORT).show();
                                     progressBar.setVisibility(View.GONE);
-
+                                    alertDialog.dismiss();
                                     if (!task.isSuccessful()) {
-                                        Toast.makeText(WeddingVenue.this, "Authentication failed." + task.getException(),
+                                        Toast.makeText(WeddingVenue.this, "Authentication failed.",
                                                 Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        startActivity(new Intent(WeddingVenue.this, WeddingVenue.class));
-                                        finish();
                                     }
                                 }
                             });
@@ -111,15 +98,6 @@ public class WeddingVenue extends AppCompatActivity {
         });
 
 
-        alertDialogBuilder.setNegativeButton("Not Now", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-
-            }
-        });
-
-        alertDialogBuilder.show();
     }
 
 }
