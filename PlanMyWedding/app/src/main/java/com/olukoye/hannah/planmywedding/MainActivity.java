@@ -1,5 +1,6 @@
 package com.olukoye.hannah.planmywedding;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -17,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_view_item);
-
+        checkIfAppLaunchedFirstTime();
         initializeCatItemList();
 
         RecyclerView catRecyclerView = (RecyclerView) findViewById(R.id.card_view_recycler_list);
@@ -37,6 +38,15 @@ public class MainActivity extends AppCompatActivity {
             catItemList.add(new MainRecyclerViewItem("Gift Registry", R.drawable.gift));
             catItemList.add(new MainRecyclerViewItem("Wedding Theme", R.drawable.theme));
 
+        }
+    }
+    private void checkIfAppLaunchedFirstTime() {
+        final String PREFS_NAME = "SharedPrefs";
+
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+
+        if (settings.getBoolean("firstTime", true)) {
+            settings.edit().putBoolean("firstTime", false).apply();
         }
     }
 }
