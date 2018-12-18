@@ -6,9 +6,4 @@
     android:layout_height="match_parent"
     tools:context="com.olukoye.hannah.planmywedding.w_venue.WeddingVenue">
 
-    <TextView
-        android:id="@+id/venue_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="" />
 </android.support.constraint.ConstraintLayout>

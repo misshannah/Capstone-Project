@@ -29,7 +29,6 @@ import com.olukoye.hannah.planmywedding.R;
 public class WeddingVenue extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private EditText inputEmail, inputPassword;
-    private TextView venueText;
     private ProgressBar progressBar;
     int PLACE_PICKER_REQUEST = 1;
 
@@ -39,7 +38,6 @@ public class WeddingVenue extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wedding_venue);
         mAuth = FirebaseAuth.getInstance();
-        venueText = (TextView) findViewById(R.id.venue_text);
         // Check if user is signed in (non-null) and update UI accordingly.
         PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
