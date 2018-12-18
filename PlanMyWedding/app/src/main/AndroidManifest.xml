@@ -26,7 +26,8 @@
         <activity android:name=".w_gifts.WeddingGifts" />
         <activity android:name=".w_theme.WeddingTheme" />
         <activity android:name=".w_guests.WeddingGuests" />
-        <activity android:name=".w_guests.GuestDetailsActivity" />
+        <activity android:name=".w_guests.GuestDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
