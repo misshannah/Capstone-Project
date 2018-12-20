@@ -53,8 +53,8 @@ public class WeddingGuests extends AppCompatActivity implements RecyclerViewAdap
     ArrayList<Guests> guestsArrayList = new ArrayList<>();
     ArrayList<String> spinnerList = new ArrayList<>(Arrays.asList(categories));
 
-    public static final int NEW_TODO_REQUEST_CODE = 200;
-    public static final int UPDATE_TODO_REQUEST_CODE = 300;
+    public static final int NEW_GUESTS_REQUEST_CODE = 200;
+    public static final int UPDATE_GUESTS_REQUEST_CODE = 300;
 
 
 
@@ -87,7 +87,7 @@ public class WeddingGuests extends AppCompatActivity implements RecyclerViewAdap
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(WeddingGuests.this, GuestDetailsActivity.class), NEW_TODO_REQUEST_CODE);
+                startActivityForResult(new Intent(WeddingGuests.this, GuestDetailsActivity.class), NEW_GUESTS_REQUEST_CODE);
             }
         });
 
@@ -174,7 +174,7 @@ public class WeddingGuests extends AppCompatActivity implements RecyclerViewAdap
 
     @Override
     public void launchIntent(int id) {
-        startActivityForResult(new Intent(WeddingGuests.this, GuestDetailsActivity.class).putExtra("id", id), UPDATE_TODO_REQUEST_CODE);
+        startActivityForResult(new Intent(WeddingGuests.this, GuestDetailsActivity.class).putExtra("id", id), UPDATE_GUESTS_REQUEST_CODE);
     }
 
     @Override
@@ -257,12 +257,12 @@ public class WeddingGuests extends AppCompatActivity implements RecyclerViewAdap
             //reset spinners
             spinner.setSelection(0);
 
-            if (requestCode == NEW_TODO_REQUEST_CODE) {
+            if (requestCode == NEW_GUESTS_REQUEST_CODE) {
                 long id = data.getLongExtra("id", -1);
                 Toast.makeText(getApplicationContext(), "Row inserted", Toast.LENGTH_SHORT).show();
                 fetchGuestsByIdAndInsert((int) id);
 
-            } else if (requestCode == UPDATE_TODO_REQUEST_CODE) {
+            } else if (requestCode == UPDATE_GUESTS_REQUEST_CODE) {
 
                 boolean isDeleted = data.getBooleanExtra("isDeleted", false);
                 int number = data.getIntExtra("number", -1);
