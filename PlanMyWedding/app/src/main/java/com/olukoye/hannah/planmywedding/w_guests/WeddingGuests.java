@@ -44,10 +44,10 @@ public class WeddingGuests extends AppCompatActivity implements RecyclerViewAdap
     FloatingActionButton floatingActionButton;
     private String[] categories = {
             "All",
-            "Android",
-            "iOS",
-            "Kotlin",
-            "Swift"
+            "Family",
+            "Friends",
+            "Workmates",
+            "Others"
     };
 
     ArrayList<Guests> guestsArrayList = new ArrayList<>();
