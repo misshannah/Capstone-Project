@@ -14,12 +14,12 @@ import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    private List<Todo> todoList;
+    private List<Guests> guestsList;
     private RecyclerViewAdapter.ClickListener clickListener;
 
     public RecyclerViewAdapter(ClickListener clickListener) {
         this.clickListener = clickListener;
-        todoList = new ArrayList<>();
+        guestsList = new ArrayList<>();
     }
 
     @Override
@@ -32,28 +32,27 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(RecyclerViewAdapter.ViewHolder holder, int position) {
-        Todo todo = todoList.get(position);
-        holder.txtName.setText(todo.name);
-        holder.txtNo.setText("#" + String.valueOf(todo.todo_id));
-        holder.txtDesc.setText(todo.description);
-        holder.txtCategory.setText(todo.category);
+        Guests guests = guestsList.get(position);
+        holder.txtName.setText(guests.name);
+        holder.txtNo.setText("#" + String.valueOf(guests.guests_id));
+        holder.txtCategory.setText(guests.category);
 
     }
 
     @Override
     public int getItemCount() {
-        return todoList.size();
+        return guestsList.size();
     }
 
 
-    public void updateTodoList(List<Todo> data) {
-        todoList.clear();
-        todoList.addAll(data);
+    public void updateGuestsList(List<Guests> data) {
+        guestsList.clear();
+        guestsList.addAll(data);
         notifyDataSetChanged();
     }
 
-    public void addRow(Todo data) {
-        todoList.add(data);
+    public void addRow(Guests data) {
+        guestsList.add(data);
         notifyDataSetChanged();
     }
 
@@ -61,7 +60,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         public TextView txtName;
         public TextView txtNo;
-        public TextView txtDesc;
         public TextView txtCategory;
         public CardView cardView;
 
@@ -70,13 +68,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             txtNo = view.findViewById(R.id.txtNo);
             txtName = view.findViewById(R.id.txtName);
-            txtDesc = view.findViewById(R.id.txtDesc);
             txtCategory = view.findViewById(R.id.txtCategory);
             cardView = view.findViewById(R.id.cardView);
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    clickListener.launchIntent(todoList.get(getAdapterPosition()).todo_id);
+                    clickListener.launchIntent(guestsList.get(getAdapterPosition()).guests_id);
                 }
             });
         }

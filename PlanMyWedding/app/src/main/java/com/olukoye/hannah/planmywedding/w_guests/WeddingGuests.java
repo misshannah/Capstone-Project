@@ -50,7 +50,7 @@ public class WeddingGuests extends AppCompatActivity implements RecyclerViewAdap
             "Swift"
     };
 
-    ArrayList<Todo> todoArrayList = new ArrayList<>();
+    ArrayList<Guests> guestsArrayList = new ArrayList<>();
     ArrayList<String> spinnerList = new ArrayList<>(Arrays.asList(categories));
 
     public static final int NEW_TODO_REQUEST_CODE = 200;
@@ -182,10 +182,10 @@ public class WeddingGuests extends AppCompatActivity implements RecyclerViewAdap
 
 
         if (position == 0) {
-            loadAllTodos();
+            loadAllGuests();
         } else {
             String string = parent.getItemAtPosition(position).toString();
-            loadFilteredTodos(string);
+            loadFilteredGuests(string);
         }
     }
 
@@ -196,17 +196,17 @@ public class WeddingGuests extends AppCompatActivity implements RecyclerViewAdap
 
 
     @SuppressLint("StaticFieldLeak")
-    private void loadFilteredTodos(String category) {
-        new AsyncTask<String, Void, List<Todo>>() {
+    private void loadFilteredGuests(String category) {
+        new AsyncTask<String, Void, List<Guests>>() {
             @Override
-            protected List<Todo> doInBackground(String... params) {
-                return myDatabase.daoAccess().fetchTodoListByCategory(params[0]);
+            protected List<Guests> doInBackground(String... params) {
+                return myDatabase.daoAccess().fetchGuestsListByCategory(params[0]);
 
             }
 
             @Override
-            protected void onPostExecute(List<Todo> todoList) {
-                recyclerViewAdapter.updateTodoList(todoList);
+            protected void onPostExecute(List<Guests> guestsList) {
+                recyclerViewAdapter.updateGuestsList(guestsList);
             }
         }.execute(category);
 
@@ -214,27 +214,27 @@ public class WeddingGuests extends AppCompatActivity implements RecyclerViewAdap
 
 
     @SuppressLint("StaticFieldLeak")
-    private void fetchTodoByIdAndInsert(int id) {
-        new AsyncTask<Integer, Void, Todo>() {
+    private void fetchGuestsByIdAndInsert(int id) {
+        new AsyncTask<Integer, Void, Guests>() {
             @Override
-            protected Todo doInBackground(Integer... params) {
-                return myDatabase.daoAccess().fetchTodoListById(params[0]);
+            protected Guests doInBackground(Integer... params) {
+                return myDatabase.daoAccess().fetchGuestsListById(params[0]);
 
             }
 
             @Override
-            protected void onPostExecute(Todo todoList) {
-                recyclerViewAdapter.addRow(todoList);
+            protected void onPostExecute(Guests guestsList) {
+                recyclerViewAdapter.addRow(guestsList);
             }
         }.execute(id);
 
     }
     @SuppressLint("StaticFieldLeak")
-    private void insertList(List<Todo> todoList) {
-        new AsyncTask<List<Todo>, Void, Void>() {
+    private void insertList(List<Guests> guestsList) {
+        new AsyncTask<List<Guests>, Void, Void>() {
             @Override
-            protected Void doInBackground(List<Todo>... params) {
-                myDatabase.daoAccess().insertTodoList(params[0]);
+            protected Void doInBackground(List<Guests>... params) {
+                myDatabase.daoAccess().insertGuestsList(params[0]);
 
                 return null;
 
@@ -244,7 +244,7 @@ public class WeddingGuests extends AppCompatActivity implements RecyclerViewAdap
             protected void onPostExecute(Void voids) {
                 super.onPostExecute(voids);
             }
-        }.execute(todoList);
+        }.execute(guestsList);
 
     }
 
@@ -260,7 +260,7 @@ public class WeddingGuests extends AppCompatActivity implements RecyclerViewAdap
             if (requestCode == NEW_TODO_REQUEST_CODE) {
                 long id = data.getLongExtra("id", -1);
                 Toast.makeText(getApplicationContext(), "Row inserted", Toast.LENGTH_SHORT).show();
-                fetchTodoByIdAndInsert((int) id);
+                fetchGuestsByIdAndInsert((int) id);
 
             } else if (requestCode == UPDATE_TODO_REQUEST_CODE) {
 
@@ -272,7 +272,7 @@ public class WeddingGuests extends AppCompatActivity implements RecyclerViewAdap
                     Toast.makeText(getApplicationContext(), number + " rows updated", Toast.LENGTH_SHORT).show();
                 }
 
-                loadAllTodos();
+                loadAllGuests();
 
             }
 
@@ -283,16 +283,16 @@ public class WeddingGuests extends AppCompatActivity implements RecyclerViewAdap
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void loadAllTodos() {
-        new AsyncTask<String, Void, List<Todo>>() {
+    private void loadAllGuests() {
+        new AsyncTask<String, Void, List<Guests>>() {
             @Override
-            protected List<Todo> doInBackground(String... params) {
-                return myDatabase.daoAccess().fetchAllTodos();
+            protected List<Guests> doInBackground(String... params) {
+                return myDatabase.daoAccess().fetchAllGuests();
             }
 
             @Override
-            protected void onPostExecute(List<Todo> todoList) {
-                recyclerViewAdapter.updateTodoList(todoList);
+            protected void onPostExecute(List<Guests> guestsList) {
+                recyclerViewAdapter.updateGuestsList(guestsList);
             }
         }.execute();
     }

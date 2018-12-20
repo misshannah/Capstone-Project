@@ -21,21 +21,21 @@ import java.util.Arrays;
 public class GuestDetailsActivity extends AppCompatActivity {
 
     Spinner spinner;
-    EditText inTitle, inDesc;
+    EditText inTitle;
     Button btnDone, btnDelete;
-    boolean isNewTodo = false;
+    boolean isNewGuests = false;
 
     private String[] categories = {
-            "Android",
-            "iOS",
-            "Kotlin",
-            "Swift"
+            "Family",
+            "Friends",
+            "Workmates",
+            "Others"
     };
 
     public ArrayList<String> spinnerList = new ArrayList<>(Arrays.asList(categories));
     MyDatabase myDatabase;
 
-    Todo updateTodo;
+    Guests updateGuests;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,6 @@ public class GuestDetailsActivity extends AppCompatActivity {
 
         spinner = findViewById(R.id.spinner);
         inTitle = findViewById(R.id.inTitle);
-        inDesc = findViewById(R.id.inDescription);
         btnDone = findViewById(R.id.btnDone);
         btnDelete = findViewById(R.id.btnDelete);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spinnerList);
@@ -55,33 +54,31 @@ public class GuestDetailsActivity extends AppCompatActivity {
 
         myDatabase = Room.databaseBuilder(getApplicationContext(), MyDatabase.class, MyDatabase.DB_NAME).build();
 
-        int todo_id = getIntent().getIntExtra("id", -100);
+        int guests_id = getIntent().getIntExtra("id", -100);
 
-        if (todo_id == -100)
-            isNewTodo = true;
+        if (guests_id == -100)
+            isNewGuests = true;
 
-        if (!isNewTodo) {
-            fetchTodoById(todo_id);
+        if (!isNewGuests) {
+            fetchGuestsById(guests_id);
             btnDelete.setVisibility(View.VISIBLE);
         }
 
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isNewTodo) {
-                    Todo todo = new Todo();
-                    todo.name = inTitle.getText().toString();
-                    todo.description = inDesc.getText().toString();
-                    todo.category = spinner.getSelectedItem().toString();
+                if (isNewGuests) {
+                    Guests guests = new Guests();
+                    guests.name = inTitle.getText().toString();
+                    guests.category = spinner.getSelectedItem().toString();
 
-                    insertRow(todo);
+                    insertRow(guests);
                 } else {
 
-                    updateTodo.name = inTitle.getText().toString();
-                    updateTodo.description = inDesc.getText().toString();
-                    updateTodo.category = spinner.getSelectedItem().toString();
+                    updateGuests.name = inTitle.getText().toString();
+                    updateGuests.category = spinner.getSelectedItem().toString();
 
-                    updateRow(updateTodo);
+                    updateRow(updateGuests);
                 }
             }
         });
@@ -89,40 +86,39 @@ public class GuestDetailsActivity extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteRow(updateTodo);
+                deleteRow(updateGuests);
             }
         });
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void fetchTodoById(final int todo_id) {
-        new AsyncTask<Integer, Void, Todo>() {
+    private void fetchGuestsById(final int guests_id) {
+        new AsyncTask<Integer, Void, Guests>() {
             @Override
-            protected Todo doInBackground(Integer... params) {
+            protected Guests doInBackground(Integer... params) {
 
-                return myDatabase.daoAccess().fetchTodoListById(params[0]);
+                return myDatabase.daoAccess().fetchGuestsListById(params[0]);
 
             }
 
             @Override
-            protected void onPostExecute(Todo todo) {
-                super.onPostExecute(todo);
-                inTitle.setText(todo.name);
-                inDesc.setText(todo.description);
-                spinner.setSelection(spinnerList.indexOf(todo.category));
+            protected void onPostExecute(Guests guests) {
+                super.onPostExecute(guests);
+                inTitle.setText(guests.name);
+                spinner.setSelection(spinnerList.indexOf(guests.category));
 
-                updateTodo = todo;
+                updateGuests = guests;
             }
-        }.execute(todo_id);
+        }.execute(guests_id);
 
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void insertRow(Todo todo) {
-        new AsyncTask<Todo, Void, Long>() {
+    private void insertRow(Guests guests) {
+        new AsyncTask<Guests, Void, Long>() {
             @Override
-            protected Long doInBackground(Todo... params) {
-                return myDatabase.daoAccess().insertTodo(params[0]);
+            protected Long doInBackground(Guests... params) {
+                return myDatabase.daoAccess().insertGuests(params[0]);
             }
 
             @Override
@@ -134,16 +130,16 @@ public class GuestDetailsActivity extends AppCompatActivity {
                 setResult(RESULT_OK, intent);
                 finish();
             }
-        }.execute(todo);
+        }.execute(guests);
 
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void deleteRow(Todo todo) {
-        new AsyncTask<Todo, Void, Integer>() {
+    private void deleteRow(Guests guests) {
+        new AsyncTask<Guests, Void, Integer>() {
             @Override
-            protected Integer doInBackground(Todo... params) {
-                return myDatabase.daoAccess().deleteTodo(params[0]);
+            protected Integer doInBackground(Guests... params) {
+                return myDatabase.daoAccess().deleteGuests(params[0]);
             }
 
             @Override
@@ -155,17 +151,17 @@ public class GuestDetailsActivity extends AppCompatActivity {
                 setResult(RESULT_OK, intent);
                 finish();
             }
-        }.execute(todo);
+        }.execute(guests);
 
     }
 
 
     @SuppressLint("StaticFieldLeak")
-    private void updateRow(Todo todo) {
-        new AsyncTask<Todo, Void, Integer>() {
+    private void updateRow(Guests guests) {
+        new AsyncTask<Guests, Void, Integer>() {
             @Override
-            protected Integer doInBackground(Todo... params) {
-                return myDatabase.daoAccess().updateTodo(params[0]);
+            protected Integer doInBackground(Guests... params) {
+                return myDatabase.daoAccess().updateGuests(params[0]);
             }
 
             @Override
@@ -177,7 +173,7 @@ public class GuestDetailsActivity extends AppCompatActivity {
                 setResult(RESULT_OK, intent);
                 finish();
             }
-        }.execute(todo);
+        }.execute(guests);
 
     }
 

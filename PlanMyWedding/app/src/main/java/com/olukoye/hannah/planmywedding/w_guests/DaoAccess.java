@@ -12,23 +12,23 @@ import java.util.List;
 public interface DaoAccess {
 
     @Insert
-    long insertTodo(Todo todo);
+    long insertGuests(Guests guests);
 
     @Insert
-    void insertTodoList(List<Todo> todoList);
+    void insertGuestsList(List<Guests> guestsList);
 
-    @Query("SELECT * FROM " + MyDatabase.TABLE_NAME_TODO)
-    List<Todo> fetchAllTodos();
+    @Query("SELECT * FROM " + MyDatabase.TABLE_NAME_GUESTS)
+    List<Guests> fetchAllGuests();
 
-    @Query("SELECT * FROM " + MyDatabase.TABLE_NAME_TODO + " WHERE category = :category")
-    List<Todo> fetchTodoListByCategory(String category);
+    @Query("SELECT * FROM " + MyDatabase.TABLE_NAME_GUESTS + " WHERE category = :category")
+    List<Guests> fetchGuestsListByCategory(String category);
 
-    @Query("SELECT * FROM " + MyDatabase.TABLE_NAME_TODO + " WHERE todo_id = :todoId")
-    Todo fetchTodoListById(int todoId);
+    @Query("SELECT * FROM " + MyDatabase.TABLE_NAME_GUESTS + " WHERE guests_id = :guestsId")
+    Guests fetchGuestsListById(int guestsId);
 
     @Update
-    int updateTodo(Todo todo);
+    int updateGuests(Guests guests);
 
     @Delete
-    int deleteTodo(Todo todo);
+    int deleteGuests(Guests guests);
 }
