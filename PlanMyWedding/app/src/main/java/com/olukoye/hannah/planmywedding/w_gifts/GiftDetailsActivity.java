@@ -1,4 +1,4 @@
-package com.olukoye.hannah.planmywedding.w_guests;
+package com.olukoye.hannah.planmywedding.w_gifts;
 
 import android.annotation.SuppressLint;
 import android.arch.persistence.room.Room;
@@ -18,12 +18,12 @@ import com.olukoye.hannah.planmywedding.R;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class GuestDetailsActivity extends AppCompatActivity {
+public class GiftDetailsActivity extends AppCompatActivity {
 
     Spinner spinner;
     EditText inTitle;
     Button btnDone, btnDelete;
-    boolean isNewGuests = false;
+    boolean isNewGifts = false;
 
     private String[] categories = {
             "Family",
@@ -33,9 +33,9 @@ public class GuestDetailsActivity extends AppCompatActivity {
     };
 
     public ArrayList<String> spinnerList = new ArrayList<>(Arrays.asList(categories));
-    GuestDatabase guestDatabase;
+    GiftDatabase giftDatabase;
 
-    Guests updateGuests;
+    Gifts updateGifts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,33 +52,33 @@ public class GuestDetailsActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        guestDatabase = Room.databaseBuilder(getApplicationContext(), GuestDatabase.class, GuestDatabase.DB_NAME).build();
+        giftDatabase = Room.databaseBuilder(getApplicationContext(), GiftDatabase.class, GiftDatabase.DB_NAME).build();
 
-        int guests_id = getIntent().getIntExtra("id", -100);
+        int gifts_id = getIntent().getIntExtra("id", -100);
 
-        if (guests_id == -100)
-            isNewGuests = true;
+        if (gifts_id == -100)
+            isNewGifts = true;
 
-        if (!isNewGuests) {
-            fetchGuestsById(guests_id);
+        if (!isNewGifts) {
+            fetchGiftsById(gifts_id);
             btnDelete.setVisibility(View.VISIBLE);
         }
 
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isNewGuests) {
-                    Guests guests = new Guests();
-                    guests.name = inTitle.getText().toString();
-                    guests.category = spinner.getSelectedItem().toString();
+                if (isNewGifts) {
+                    Gifts gifts = new Gifts();
+                    gifts.name = inTitle.getText().toString();
+                    gifts.category = spinner.getSelectedItem().toString();
 
-                    insertRow(guests);
+                    insertRow(gifts);
                 } else {
 
-                    updateGuests.name = inTitle.getText().toString();
-                    updateGuests.category = spinner.getSelectedItem().toString();
+                    updateGifts.name = inTitle.getText().toString();
+                    updateGifts.category = spinner.getSelectedItem().toString();
 
-                    updateRow(updateGuests);
+                    updateRow(updateGifts);
                 }
             }
         });
@@ -86,39 +86,39 @@ public class GuestDetailsActivity extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteRow(updateGuests);
+                deleteRow(updateGifts);
             }
         });
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void fetchGuestsById(final int guests_id) {
-        new AsyncTask<Integer, Void, Guests>() {
+    private void fetchGiftsById(final int gifts_id) {
+        new AsyncTask<Integer, Void, Gifts>() {
             @Override
-            protected Guests doInBackground(Integer... params) {
+            protected Gifts doInBackground(Integer... params) {
 
-                return guestDatabase.daoAccess().fetchGuestsListById(params[0]);
+                return giftDatabase.daoAccess().fetchGiftsListById(params[0]);
 
             }
 
             @Override
-            protected void onPostExecute(Guests guests) {
-                super.onPostExecute(guests);
-                inTitle.setText(guests.name);
-                spinner.setSelection(spinnerList.indexOf(guests.category));
+            protected void onPostExecute(Gifts gifts) {
+                super.onPostExecute(gifts);
+                inTitle.setText(gifts.name);
+                spinner.setSelection(spinnerList.indexOf(gifts.category));
 
-                updateGuests = guests;
+                updateGifts = gifts;
             }
-        }.execute(guests_id);
+        }.execute(gifts_id);
 
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void insertRow(Guests guests) {
-        new AsyncTask<Guests, Void, Long>() {
+    private void insertRow(Gifts gifts) {
+        new AsyncTask<Gifts, Void, Long>() {
             @Override
-            protected Long doInBackground(Guests... params) {
-                return guestDatabase.daoAccess().insertGuests(params[0]);
+            protected Long doInBackground(Gifts... params) {
+                return giftDatabase.daoAccess().insertGifts(params[0]);
             }
 
             @Override
@@ -130,16 +130,16 @@ public class GuestDetailsActivity extends AppCompatActivity {
                 setResult(RESULT_OK, intent);
                 finish();
             }
-        }.execute(guests);
+        }.execute(gifts);
 
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void deleteRow(Guests guests) {
-        new AsyncTask<Guests, Void, Integer>() {
+    private void deleteRow(Gifts gifts) {
+        new AsyncTask<Gifts, Void, Integer>() {
             @Override
-            protected Integer doInBackground(Guests... params) {
-                return guestDatabase.daoAccess().deleteGuests(params[0]);
+            protected Integer doInBackground(Gifts... params) {
+                return giftDatabase.daoAccess().deleteGifts(params[0]);
             }
 
             @Override
@@ -151,17 +151,17 @@ public class GuestDetailsActivity extends AppCompatActivity {
                 setResult(RESULT_OK, intent);
                 finish();
             }
-        }.execute(guests);
+        }.execute(gifts);
 
     }
 
 
     @SuppressLint("StaticFieldLeak")
-    private void updateRow(Guests guests) {
-        new AsyncTask<Guests, Void, Integer>() {
+    private void updateRow(Gifts gifts) {
+        new AsyncTask<Gifts, Void, Integer>() {
             @Override
-            protected Integer doInBackground(Guests... params) {
-                return guestDatabase.daoAccess().updateGuests(params[0]);
+            protected Integer doInBackground(Gifts... params) {
+                return giftDatabase.daoAccess().updateGifts(params[0]);
             }
 
             @Override
@@ -173,7 +173,7 @@ public class GuestDetailsActivity extends AppCompatActivity {
                 setResult(RESULT_OK, intent);
                 finish();
             }
-        }.execute(guests);
+        }.execute(gifts);
 
     }
 

@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         if (catItemList == null) {
             catItemList = new ArrayList<MainRecyclerViewItem>();
             catItemList.add(new MainRecyclerViewItem("Wedding Venue", R.drawable.venue));
-            catItemList.add(new MainRecyclerViewItem("Guest Registration", R.drawable.guest));
+            catItemList.add(new MainRecyclerViewItem("Guest List", R.drawable.guest));
             catItemList.add(new MainRecyclerViewItem("Gift Registry", R.drawable.gift));
             catItemList.add(new MainRecyclerViewItem("Wedding Theme", R.drawable.theme));
 

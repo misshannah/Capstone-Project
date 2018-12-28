@@ -12,26 +12,26 @@ import com.olukoye.hannah.planmywedding.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+public class GuestRecyclerViewAdapter extends RecyclerView.Adapter<GuestRecyclerViewAdapter.ViewHolder> {
 
     private List<Guests> guestsList;
-    private RecyclerViewAdapter.ClickListener clickListener;
+    private GuestRecyclerViewAdapter.ClickListener clickListener;
 
-    public RecyclerViewAdapter(ClickListener clickListener) {
+    public GuestRecyclerViewAdapter(ClickListener clickListener) {
         this.clickListener = clickListener;
         guestsList = new ArrayList<>();
     }
 
     @Override
-    public RecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                             int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item_layout, parent, false);
-        RecyclerViewAdapter.ViewHolder viewHolder = new RecyclerViewAdapter.ViewHolder(view);
+    public GuestRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                                  int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.guest_recyclerview_item_layout, parent, false);
+        GuestRecyclerViewAdapter.ViewHolder viewHolder = new GuestRecyclerViewAdapter.ViewHolder(view);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(RecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(GuestRecyclerViewAdapter.ViewHolder holder, int position) {
         Guests guests = guestsList.get(position);
         holder.txtName.setText(guests.name);
         holder.txtNo.setText("#" + String.valueOf(guests.guests_id));

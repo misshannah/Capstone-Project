@@ -33,14 +33,14 @@ package com.olukoye.hannah.planmywedding.w_guests;
         import java.util.Arrays;
         import java.util.List;
 
-public class WeddingGuests extends AppCompatActivity implements RecyclerViewAdapter.ClickListener, AdapterView.OnItemSelectedListener {
+public class WeddingGuests extends AppCompatActivity implements GuestRecyclerViewAdapter.ClickListener, AdapterView.OnItemSelectedListener {
     private FirebaseAuth mAuth;
     private EditText inputEmail, inputPassword;
     private ProgressBar progressBar;
-    MyDatabase myDatabase;
+    GuestDatabase guestDatabase;
     RecyclerView recyclerView;
     Spinner spinner;
-    RecyclerViewAdapter recyclerViewAdapter;
+    GuestRecyclerViewAdapter guestRecyclerViewAdapter;
     FloatingActionButton floatingActionButton;
     private String[] categories = {
             "All",
@@ -76,10 +76,10 @@ public class WeddingGuests extends AppCompatActivity implements RecyclerViewAdap
 
         recyclerView = findViewById(R.id.guestView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewAdapter = new RecyclerViewAdapter(this);
-        recyclerView.setAdapter(recyclerViewAdapter);
+        guestRecyclerViewAdapter = new GuestRecyclerViewAdapter(this);
+        recyclerView.setAdapter(guestRecyclerViewAdapter);
 
-        myDatabase = Room.databaseBuilder(getApplicationContext(), MyDatabase.class, MyDatabase.DB_NAME).fallbackToDestructiveMigration().build();
+        guestDatabase = Room.databaseBuilder(getApplicationContext(), GuestDatabase.class, GuestDatabase.DB_NAME).fallbackToDestructiveMigration().build();
 
         spinner.setOnItemSelectedListener(this);
         spinner.setSelection(0);
@@ -200,13 +200,13 @@ public class WeddingGuests extends AppCompatActivity implements RecyclerViewAdap
         new AsyncTask<String, Void, List<Guests>>() {
             @Override
             protected List<Guests> doInBackground(String... params) {
-                return myDatabase.daoAccess().fetchGuestsListByCategory(params[0]);
+                return guestDatabase.daoAccess().fetchGuestsListByCategory(params[0]);
 
             }
 
             @Override
             protected void onPostExecute(List<Guests> guestsList) {
-                recyclerViewAdapter.updateGuestsList(guestsList);
+                guestRecyclerViewAdapter.updateGuestsList(guestsList);
             }
         }.execute(category);
 
@@ -218,13 +218,13 @@ public class WeddingGuests extends AppCompatActivity implements RecyclerViewAdap
         new AsyncTask<Integer, Void, Guests>() {
             @Override
             protected Guests doInBackground(Integer... params) {
-                return myDatabase.daoAccess().fetchGuestsListById(params[0]);
+                return guestDatabase.daoAccess().fetchGuestsListById(params[0]);
 
             }
 
             @Override
             protected void onPostExecute(Guests guestsList) {
-                recyclerViewAdapter.addRow(guestsList);
+                guestRecyclerViewAdapter.addRow(guestsList);
             }
         }.execute(id);
 
@@ -234,7 +234,7 @@ public class WeddingGuests extends AppCompatActivity implements RecyclerViewAdap
         new AsyncTask<List<Guests>, Void, Void>() {
             @Override
             protected Void doInBackground(List<Guests>... params) {
-                myDatabase.daoAccess().insertGuestsList(params[0]);
+                guestDatabase.daoAccess().insertGuestsList(params[0]);
 
                 return null;
 
@@ -287,12 +287,12 @@ public class WeddingGuests extends AppCompatActivity implements RecyclerViewAdap
         new AsyncTask<String, Void, List<Guests>>() {
             @Override
             protected List<Guests> doInBackground(String... params) {
-                return myDatabase.daoAccess().fetchAllGuests();
+                return guestDatabase.daoAccess().fetchAllGuests();
             }
 
             @Override
             protected void onPostExecute(List<Guests> guestsList) {
-                recyclerViewAdapter.updateGuestsList(guestsList);
+                guestRecyclerViewAdapter.updateGuestsList(guestsList);
             }
         }.execute();
     }

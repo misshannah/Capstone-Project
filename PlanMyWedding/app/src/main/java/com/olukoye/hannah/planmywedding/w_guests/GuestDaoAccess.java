@@ -9,7 +9,7 @@ import android.arch.persistence.room.Update;
 import java.util.List;
 
 @Dao
-public interface DaoAccess {
+public interface GuestDaoAccess {
 
     @Insert
     long insertGuests(Guests guests);
@@ -17,13 +17,13 @@ public interface DaoAccess {
     @Insert
     void insertGuestsList(List<Guests> guestsList);
 
-    @Query("SELECT * FROM " + MyDatabase.TABLE_NAME_GUESTS)
+    @Query("SELECT * FROM " + GuestDatabase.TABLE_NAME_GUESTS)
     List<Guests> fetchAllGuests();
 
-    @Query("SELECT * FROM " + MyDatabase.TABLE_NAME_GUESTS + " WHERE category = :category")
+    @Query("SELECT * FROM " + GuestDatabase.TABLE_NAME_GUESTS + " WHERE category = :category")
     List<Guests> fetchGuestsListByCategory(String category);
 
-    @Query("SELECT * FROM " + MyDatabase.TABLE_NAME_GUESTS + " WHERE guests_id = :guestsId")
+    @Query("SELECT * FROM " + GuestDatabase.TABLE_NAME_GUESTS + " WHERE guests_id = :guestsId")
     Guests fetchGuestsListById(int guestsId);
 
     @Update
