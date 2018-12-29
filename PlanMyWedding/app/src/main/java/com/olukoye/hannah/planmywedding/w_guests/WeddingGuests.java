@@ -265,7 +265,7 @@ public class WeddingGuests extends AppCompatActivity implements GuestRecyclerVie
             } else if (requestCode == UPDATE_GUESTS_REQUEST_CODE) {
 
                 boolean isDeleted = data.getBooleanExtra("isDeleted", false);
-                int number = data.getIntExtra("number", -1);
+                //int number = data.getIntExtra("number", -1);
                 if (isDeleted) {
                     Toast.makeText(getApplicationContext(), "Deleted", Toast.LENGTH_SHORT).show();
                 } else {

@@ -266,7 +266,7 @@ public class WeddingGifts extends AppCompatActivity implements GiftRecyclerViewA
             } else if (requestCode == UPDATE_GIFTS_REQUEST_CODE) {
 
                 boolean isDeleted = data.getBooleanExtra("isDeleted", false);
-                int number = data.getIntExtra("number", -1);
+                //int number = data.getIntExtra("number", -1);
                 if (isDeleted) {
                     Toast.makeText(getApplicationContext(), "deleted!", Toast.LENGTH_SHORT).show();
                 } else {
