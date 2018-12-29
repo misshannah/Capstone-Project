@@ -7,12 +7,16 @@
     tools:context="com.olukoye.hannah.planmywedding.w_guests.WeddingGuests">
         <Spinner
             android:id="@+id/spinner"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_alignParentTop="true" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/guestView"
+            android:layout_below="@+id/spinner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="16dp" />

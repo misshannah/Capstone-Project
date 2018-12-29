@@ -259,7 +259,7 @@ public class WeddingGuests extends AppCompatActivity implements GuestRecyclerVie
 
             if (requestCode == NEW_GUESTS_REQUEST_CODE) {
                 long id = data.getLongExtra("id", -1);
-                Toast.makeText(getApplicationContext(), "Row inserted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Done!", Toast.LENGTH_SHORT).show();
                 fetchGuestsByIdAndInsert((int) id);
 
             } else if (requestCode == UPDATE_GUESTS_REQUEST_CODE) {
@@ -267,9 +267,9 @@ public class WeddingGuests extends AppCompatActivity implements GuestRecyclerVie
                 boolean isDeleted = data.getBooleanExtra("isDeleted", false);
                 int number = data.getIntExtra("number", -1);
                 if (isDeleted) {
-                    Toast.makeText(getApplicationContext(), number + " rows deleted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Deleted", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), number + " rows updated", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),  " Updated", Toast.LENGTH_SHORT).show();
                 }
 
                 loadAllGuests();

@@ -20,7 +20,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/guest_details_list" />
+    <include layout="@layout/gift_details_list" />
 
 
 

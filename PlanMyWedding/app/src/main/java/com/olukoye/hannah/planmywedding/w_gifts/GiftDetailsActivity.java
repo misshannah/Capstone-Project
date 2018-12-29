@@ -26,10 +26,11 @@ public class GiftDetailsActivity extends AppCompatActivity {
     boolean isNewGifts = false;
 
     private String[] categories = {
-            "Family",
-            "Friends",
-            "Workmates",
-            "Others"
+            "Kitchen",
+            "Bathroom",
+            "Furniture",
+            "Electronics",
+            "Other"
     };
 
     public ArrayList<String> spinnerList = new ArrayList<>(Arrays.asList(categories));
@@ -40,7 +41,7 @@ public class GiftDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guest_details);
+        setContentView(R.layout.activity_gift_details);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

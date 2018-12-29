@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_guest_details">
+    tools:showIn="@layout/activity_gift_details">
 
 
 
@@ -42,7 +42,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="Enter Guest Full Name" />
+        android:hint="Enter Item" />
     <Button
         android:id="@+id/btnDone"
         android:layout_width="match_parent"
@@ -52,7 +52,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="Add Guest" />
+        android:text="Add Item" />
 
     <Button
         android:id="@+id/btnDelete"

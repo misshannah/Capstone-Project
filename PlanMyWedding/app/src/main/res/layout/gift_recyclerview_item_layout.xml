@@ -29,7 +29,15 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/txtNo"
                 android:orientation="vertical">
-
+                <ImageView
+                    android:id="@+id/image"
+                    android:src="@drawable/gift"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginTop="8dp"
+                   />
                 <TextView
                     android:id="@+id/txtName"
                     android:layout_width="wrap_content"
