@@ -5,10 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.olukoye.hannah.planmywedding.w_theme.WeddingTheme">
+    <Button
+        android:id="@+id/DisplayImagesButton"
+        android:text="Display Current Theme"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/DisplayImagesButton"
         android:textSize="20sp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"

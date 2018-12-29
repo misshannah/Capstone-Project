@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.olukoye.hannah.planmywedding">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon"
@@ -12,7 +14,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="BuildConfig.Geo_ApiKey"/>
+            android:value="BuildConfig.Geo_ApiKey" />
 
         <activity android:name=".MainActivity" />
         <activity
@@ -28,10 +30,13 @@
         <activity android:name=".w_gifts.WeddingGifts" />
         <activity android:name=".w_theme.WeddingTheme" />
         <activity android:name=".w_guests.WeddingGuests" />
-        <activity android:name=".w_guests.GuestDetailsActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".w_gifts.GiftDetailsActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".w_guests.GuestDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".w_gifts.GiftDetailsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".w_theme.ThemeDisplay"></activity>
     </application>
 
 </manifest>

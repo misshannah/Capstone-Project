@@ -37,12 +37,13 @@ public class WeddingTheme extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private EditText inputEmail, inputPassword;
     private ProgressBar progressBar;
-    private Button btnChoose, btnUpload;
+    private Button btnChoose, btnUpload,DisplayImageButton;
     private ImageView imageView;
     private Uri filePath;
     private final int PICK_IMAGE_REQUEST = 71;
     FirebaseStorage storage;
     StorageReference storageReference;
+    public static final String Database_Path = "All_Image_Uploads_Database";
 
 
     @Override
@@ -54,6 +55,7 @@ public class WeddingTheme extends AppCompatActivity {
 
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
+        DisplayImageButton = (Button)findViewById(R.id.DisplayImagesButton);
 
         btnChoose = (Button) findViewById(R.id.btnChoose);
         btnUpload = (Button) findViewById(R.id.btnUpload);
@@ -70,6 +72,15 @@ public class WeddingTheme extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 uploadImage();
+            }
+        });
+        DisplayImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(WeddingTheme.this, ThemeDisplay.class);
+                startActivity(intent);
+
             }
         });
     }
