@@ -1,6 +1,7 @@
 package com.olukoye.hannah.planmywedding.w_theme;
 
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,6 +26,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -31,7 +35,6 @@ import com.google.firebase.storage.UploadTask;
 import com.olukoye.hannah.planmywedding.R;
 
 import java.io.IOException;
-import java.util.UUID;
 
 public class WeddingTheme extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -39,10 +42,14 @@ public class WeddingTheme extends AppCompatActivity {
     private ProgressBar progressBar;
     private Button btnChoose, btnUpload,DisplayImageButton;
     private ImageView imageView;
-    private Uri filePath;
+    EditText ImageName;
     private final int PICK_IMAGE_REQUEST = 71;
-    FirebaseStorage storage;
     StorageReference storageReference;
+    DatabaseReference databaseReference;
+    Uri FilePathUri;
+    ProgressDialog progressDialog;
+
+    int Image_Request_Code = 7;
     public static final String Database_Path = "All_Image_Uploads_Database";
 
 
@@ -53,13 +60,18 @@ public class WeddingTheme extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         // Check if user is signed in (non-null) and update UI accordingly.
 
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();
+        // Assign FirebaseStorage instance to storageReference.
+        storageReference = FirebaseStorage.getInstance().getReference();
+
+        // Assign FirebaseDatabase instance with root database name.
+        databaseReference = FirebaseDatabase.getInstance().getReference(Database_Path);
+
         DisplayImageButton = (Button)findViewById(R.id.DisplayImagesButton);
 
         btnChoose = (Button) findViewById(R.id.btnChoose);
         btnUpload = (Button) findViewById(R.id.btnUpload);
         imageView = (ImageView) findViewById(R.id.imgView);
+        ImageName = (EditText)findViewById(R.id.ImageNameEditText);
 
         btnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +83,7 @@ public class WeddingTheme extends AppCompatActivity {
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadImage();
+                UploadImageFileToFirebaseStorage();
             }
         });
         DisplayImageButton.setOnClickListener(new View.OnClickListener() {
@@ -94,56 +106,116 @@ public class WeddingTheme extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
-                && data != null && data.getData() != null )
-        {
-            filePath = data.getData();
+
+        if (requestCode == Image_Request_Code && resultCode == RESULT_OK && data != null && data.getData() != null) {
+
+            FilePathUri = data.getData();
+
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+
+                // Getting selected image into Bitmap.
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), FilePathUri);
+
+                // Setting up bitmap selected image into ImageView.
                 imageView.setImageBitmap(bitmap);
+
+                // After selecting image change choose button above text.
+                btnUpload.setText("Image Selected");
+
             }
-            catch (IOException e)
-            {
+            catch (IOException e) {
+
                 e.printStackTrace();
             }
         }
     }
 
-    private void uploadImage() {
+    // Creating Method to get the selected image file Extension from File Path URI.
+    public String GetFileExtension(Uri uri) {
 
-        if(filePath != null)
-        {
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("Uploading...");
+        ContentResolver contentResolver = getContentResolver();
+
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+
+        // Returning the file Extension.
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri)) ;
+
+    }
+
+    // Creating UploadImageFileToFirebaseStorage method to upload image on storage.
+    public void UploadImageFileToFirebaseStorage() {
+
+        // Checking whether FilePathUri Is empty or not.
+        if (FilePathUri != null) {
+
+            // Setting progressDialog Title.
+            progressDialog.setTitle("Image is Uploading...");
+
+            // Showing progressDialog.
             progressDialog.show();
 
-            StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
-            ref.putFile(filePath)
+            // Creating second StorageReference.
+            StorageReference storageReference2nd = storageReference.child(Database_Path + System.currentTimeMillis() + "." + GetFileExtension(FilePathUri));
+
+            // Adding addOnSuccessListener to second StorageReference.
+            storageReference2nd.putFile(FilePathUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            // Getting image name from EditText and store into string variable.
+                            String TempImageName = ImageName.getText().toString().trim();
+
+                            // Hiding the progressDialog after done uploading.
                             progressDialog.dismiss();
-                            Toast.makeText(WeddingTheme.this, "Uploaded", Toast.LENGTH_SHORT).show();
+
+                            // Showing toast message after done uploading.
+                            Toast.makeText(getApplicationContext(), "Image Uploaded Successfully ", Toast.LENGTH_LONG).show();
+
+                            @SuppressWarnings("VisibleForTests")
+                            ImageUploadInfo imageUploadInfo = new ImageUploadInfo
+                                    (TempImageName, taskSnapshot.getDownloadUrl().toString());
+
+                            // Getting image upload ID.
+                            String ImageUploadId = databaseReference.push().getKey();
+
+                            // Adding image upload id s child element into databaseReference.
+                            databaseReference.child(ImageUploadId).setValue(imageUploadInfo);
                         }
                     })
+                    // If something goes wrong .
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
-                        public void onFailure(@NonNull Exception e) {
+                        public void onFailure(@NonNull Exception exception) {
+
+                            // Hiding the progressDialog.
                             progressDialog.dismiss();
-                            Toast.makeText(WeddingTheme.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                            // Showing exception erro message.
+                            Toast.makeText(WeddingTheme.this, exception.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     })
+
+                    // On progress change upload time.
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
-                                    .getTotalByteCount());
-                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
+
+                            // Setting progressDialog Title.
+                            progressDialog.setTitle("Image is Uploading...");
+
                         }
                     });
         }
+        else {
+
+            Toast.makeText(WeddingTheme.this, "Please Select Image or Add Image Name", Toast.LENGTH_LONG).show();
+
+        }
     }
+
     @Override
     public void onStart() {
         super.onStart();
