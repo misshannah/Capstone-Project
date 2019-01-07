@@ -50,6 +50,8 @@ public class WeddingTheme extends AppCompatActivity {
     ProgressDialog progressDialog;
 
     int Image_Request_Code = 7;
+    // Folder path for Firebase Storage.
+    String Storage_Path = "images/";
     public static final String Database_Path = "All_Image_Uploads_Database";
 
 
@@ -157,7 +159,7 @@ public class WeddingTheme extends AppCompatActivity {
             progressDialog.show();
 
             // Creating second StorageReference.
-            final StorageReference storageReference2nd = storageReference.child(Database_Path + System.currentTimeMillis() + "." + GetFileExtension(FilePathUri));
+            final StorageReference storageReference2nd = storageReference.child(Storage_Path + System.currentTimeMillis() + "." + GetFileExtension(FilePathUri));
 
             // Adding addOnSuccessListener to second StorageReference.
             storageReference2nd.putFile(FilePathUri)
