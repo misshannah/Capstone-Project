@@ -1,10 +1,9 @@
 package com.olukoye.hannah.planmywedding.w_theme;
 
-/**
- * Created by hannaholukoye on 29/12/2018.
- */
+
 
 public class ImageUploadInfo {
+
 
     public String imageName;
 

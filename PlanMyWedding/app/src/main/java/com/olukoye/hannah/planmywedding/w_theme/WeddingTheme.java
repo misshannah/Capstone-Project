@@ -66,12 +66,12 @@ public class WeddingTheme extends AppCompatActivity {
         // Assign FirebaseDatabase instance with root database name.
         databaseReference = FirebaseDatabase.getInstance().getReference(Database_Path);
 
-        DisplayImageButton = (Button)findViewById(R.id.DisplayImagesButton);
+        DisplayImageButton = findViewById(R.id.DisplayImagesButton);
 
-        btnChoose = (Button) findViewById(R.id.btnChoose);
-        btnUpload = (Button) findViewById(R.id.btnUpload);
-        imageView = (ImageView) findViewById(R.id.imgView);
-        ImageName = (EditText)findViewById(R.id.ImageNameEditText);
+        btnChoose = findViewById(R.id.btnChoose);
+        btnUpload = findViewById(R.id.btnUpload);
+        imageView =  findViewById(R.id.imgView);
+        ImageName = findViewById(R.id.ImageNameEditText);
 
         btnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,7 +122,7 @@ public class WeddingTheme extends AppCompatActivity {
                 imageView.setImageBitmap(bitmap);
 
                 // After selecting image change choose button above text.
-                btnUpload.setText("Image Selected");
+                btnUpload.setText(R.string.imageText);
 
             }
             catch (IOException e) {
@@ -157,7 +157,7 @@ public class WeddingTheme extends AppCompatActivity {
             progressDialog.show();
 
             // Creating second StorageReference.
-            StorageReference storageReference2nd = storageReference.child(Database_Path + System.currentTimeMillis() + "." + GetFileExtension(FilePathUri));
+            final StorageReference storageReference2nd = storageReference.child(Database_Path + System.currentTimeMillis() + "." + GetFileExtension(FilePathUri));
 
             // Adding addOnSuccessListener to second StorageReference.
             storageReference2nd.putFile(FilePathUri)
@@ -176,7 +176,7 @@ public class WeddingTheme extends AppCompatActivity {
 
                             @SuppressWarnings("VisibleForTests")
                             ImageUploadInfo imageUploadInfo = new ImageUploadInfo
-                                    (TempImageName, taskSnapshot.getDownloadUrl().toString());
+                                    (TempImageName, storageReference2nd.getDownloadUrl().toString());
 
                             // Getting image upload ID.
                             String ImageUploadId = databaseReference.push().getKey();
@@ -257,17 +257,14 @@ public class WeddingTheme extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
-                    return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
                     Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
-                    return;
                 }
 
                 if (password.length() < 6) {
                     Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
-                    return;
                 } else {
                     progressBar.setVisibility(View.VISIBLE);
                     mAuth.createUserWithEmailAndPassword(email, password)

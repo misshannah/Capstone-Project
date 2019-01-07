@@ -36,7 +36,8 @@
         <activity
             android:name=".w_gifts.GiftDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".w_theme.ThemeDisplay"></activity>
+        <activity android:name=".w_theme.ThemeDisplay"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
